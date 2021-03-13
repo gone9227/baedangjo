@@ -1,23 +1,38 @@
 package com.test.config.demo.controller;
 
-import com.test.config.demo.dto.DtoConfigPropertyTest;
+import com.test.config.demo.dto.LoginVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@RestController
+@Slf4j
+@Controller
 @RequiredArgsConstructor
 public class DemoController {
 
-    private final DtoConfigPropertyTest dtoConfigPropertyTest;
+    @GetMapping("/")
+    public String home(){
+        return "index";
+    }
 
-    @GetMapping("/hello")
-    public String hello(){
+    @GetMapping("/sign-in")
+    public String signIn(){
+        return "common/signin";
+    }
 
-        System.out.println("TEST DTO name = " + dtoConfigPropertyTest.getName());
-        System.out.println("TEST DTO value = " + dtoConfigPropertyTest.getValue());
+    @PostMapping("/sign-in")
+    public String signIn(@ModelAttribute LoginVO loginVO){
+        log.debug("Login VO = {}", loginVO);
+        return "system/success";
+    }
 
-        return "hello";
+    @GetMapping("/sign-up")
+    public String signUp(){
+        return "common/signup";
     }
 
 }
